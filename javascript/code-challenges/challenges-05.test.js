@@ -52,13 +52,11 @@ like the example.
 
 const addPurchases = (arr) => {
   // Solution code here...
-  const arr2=arr.reduce((acc,nextVal)=>{
-    if(typeof(nextVal.purchasePrice)===typeof(5)){
-      acc++;
-    }
-   return acc;
-})
-  return arr2;
+ const arr2= arr.reduce((acc,val)=>{
+  acc+=val.purchasePrice
+  return acc;
+ },0)
+ return parseInt(arr2)
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -138,6 +136,11 @@ let starWarsData = [{
 
 const returnNames = (arr) => {
   // Solution code here...
+  const arr2=arr.reduce((acc,val)=>{
+    acc.push(val.name)
+    return acc;
+  },[])
+  return arr2;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -150,12 +153,18 @@ Note: You must use reduce for this challenge. You may not use the built-in .reve
 
 const reversedString = (str) => {
   // Solution code here...
+  let arr =str.split("");
+  let resreved = arr.reduce((acc,val)=>{
+      return val+acc;
+  },"")
+  return resreved;
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 7 - Stretch Goal
 
-Write a function named countNumberOfChildren that, given the array of characters, below, uses reduce to return the total number of children in the data set.
+Write a function named countNumberOfChildren that, given the array of characters, below,
+ uses reduce to return the total number of children in the data set.
 ------------------------------------------------------------------------------------------------ */
 
 const characters = [
@@ -203,6 +212,14 @@ const characters = [
 
 const countNumberOfChildren = (arr) => {
   // Solution code here...
+
+  const numOfChilldren= arr.reduce((acc,val)=>{
+    if(val.hasOwnProperty("children")){
+      acc+=val.children.length;
+    }
+    return acc;
+  },0)
+  return numOfChilldren;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -215,12 +232,20 @@ Hint: The accumulator should begin as { count: 0, sum: 0 }
 
 const calculateAverage = (arr) => {
   // Solution code here...
+  let count=0, sum=0;
+  let sumOfNumbers=arr.reduce((acc,val)=>{
+    sum=sum+val;
+    count++;
+    return sum;
+  },0)
+  return (sumOfNumbers/count);
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 9 - Stretch Goal
 
-Write a function named countPrimeNumbers that, given an array elements as input, uses reduce to count the number of elements that are prime numbers.
+Write a function named countPrimeNumbers that, given an array elements as input, 
+uses reduce to count the number of elements that are prime numbers.
 
 You are welcome to use the provided isPrime function.
 ------------------------------------------------------------------------------------------------ */
@@ -236,12 +261,22 @@ const isPrime = (value) => {
 
 const countPrimeNumbers = (arr) => {
   // Solution code here...
+  let count=0; 
+  const result=arr.reduce((acc,val)=>{
+    if(isPrime(val)){
+      count++;
+    }
+    return count;
+
+  },0)
+  return result;// count it's correct also
 };
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 10 - Stretch Goal
 
-Write a function named extractState that, given the snorlaxData, below, uses reduce to return the object whose 'name' property matches the given string.
+Write a function named extractState that, given the snorlaxData, below, 
+uses reduce to return the object whose 'name' property matches the given string.
 
 If the input array does not have a stat with that specific name, the function should return null.
 ------------------------------------------------------------------------------------------------ */
@@ -349,19 +384,19 @@ describe('Testing challenge 6', () => {
   });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
   test('It should return the total number of children', () => {
     expect(countNumberOfChildren(characters)).toStrictEqual(14);
   });
 });
 
-xdescribe('Testing challenge 8', () => {
+describe('Testing challenge 8', () => {
   test('It should return the average of the numbers in the array', () => {
     expect(calculateAverage([18, 290, 37, 4, 55, 16, 7, 85 ])).toStrictEqual(64);
   });
 });
 
-xdescribe('Testing challenge 9', () => {
+describe('Testing challenge 9', () => {
   test('It should return a count of the prime numbers in the array', () => {
     expect(countPrimeNumbers([1, 2, 13, 64, 45, 56, 17, 8])).toStrictEqual(3);
   });
