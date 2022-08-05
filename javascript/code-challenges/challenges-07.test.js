@@ -152,9 +152,8 @@ const gruffaloCrumble = {
 const listFoods = (recipe) => {
   let result = [];
   // Solution code here...
-  const res2=[];
-  const arr=recipe.ingredients.map(item=>{
-    return item;
+  result = recipe.ingredients.map(item=>{
+   return item.slice(item.indexOf(" ",4)+1)
   })
  
   
