@@ -155,8 +155,6 @@ const listFoods = (recipe) => {
   result = recipe.ingredients.map(item=>{
    return item.slice(item.indexOf(" ",4)+1)
   })
- 
-  
   return result;
 };
 
